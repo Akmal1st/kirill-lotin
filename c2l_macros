@@ -1,0 +1,41 @@
+Sub C2L
+	Dim doc as Object
+	Dim oReplace as Object
+	Dim crl(50) as String
+	Dim ltn(50) as String
+	doc = ThisComponent()
+    oReplace = doc.createReplaceDescriptor()
+    oReplace.SearchCaseSensitive = True
+	crl()=array( "ё", "ю", "я",  "ўе", "уе", "ое", "ае", "эе", "ие", " е","е", "ў","ўъ","у","о","а","э","и", "ч", "ш","қ","к","б","в","ф", "ғ","г","д","ж","з","й","л","м","н","п","р","с","т","ҳ","х","ц","ъ","ь")
+	ltn()=array("yo","yu","ya","o'ye","uye","oye","aye","eye","iye"," ye","e","o'","o'","u","o","a","e","i","ch","sh","q","k","b","v","f","g'","g","d","j","z","y","l","m","n","p","r","s","t","h","x","s","'", "")
+	For i = LBOUND(crl()) to UBOUND(ltn())
+        oReplace.setSearchString( crl(i) )
+        oReplace.setReplaceString( ltn(i) )
+        ThisComponent.replaceAll( oReplace )
+        oReplace.setSearchString ( UCase(Left(crl(i), 1)) & Mid(crl(i), 2)  )
+        oReplace.setReplaceString( UCase(Left(ltn(i), 1)) & Mid(ltn(i), 2) )
+        ThisComponent.replaceAll( oReplace )
+    Next i
+    msgbox "Bajarildi"
+End Sub
+
+Sub L2C
+	Dim doc as Object
+	Dim oReplace as Object
+	Dim crl(50) as String
+	Dim ltn(50) as String
+	doc = ThisComponent()
+    oReplace = doc.createReplaceDescriptor()
+    oReplace.SearchCaseSensitive = True
+	crl()=array( "ё", "ю", "я",  "ўе", "уе", "ое", "ае", "эе", "ие", " е","е", "ў","ўъ","у","о","а","э","и", "ч", "ш","қ","к","б","в","ф", "ғ","г","д","ж","з","й","л","м","н","п","р","с","т","ҳ","х","ц","ъ")
+	ltn()=array("yo","yu","ya","o'ye","uye","oye","aye","eye","iye"," ye","e","o'","o'","u","o","a","e","i","ch","sh","q","k","b","v","f","g'","g","d","j","z","y","l","m","n","p","r","s","t","h","x","s","'")
+	For i = LBOUND(ltn()) to UBOUND(crl())
+        oReplace.setSearchString( ltn(i) )
+        oReplace.setReplaceString( crl(i) )
+        ThisComponent.replaceAll( oReplace )
+        oReplace.setSearchString ( UCase(Left(ltn(i), 1)) & Mid(ltn(i), 2) )
+        oReplace.setReplaceString( UCase(Left(crl(i), 1)) & Mid(crl(i), 2) )
+        ThisComponent.replaceAll( oReplace )
+    Next i
+    msgbox "Bajarildi"
+End Sub
